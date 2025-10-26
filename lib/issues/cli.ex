@@ -59,10 +59,11 @@ defmodule Issues.CLI do
     """
     System.halt(0)
   end
-  def process({user, project, _count}) do
+  def process({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
-    |> sort_into_descending_order()
+    |> sort_into_descending_order() # 新しい順に並べ替える
+    |> last(count) # `count`個を取り、古い順にする
   end
 
   def decode_response({:ok, body}), do: body
@@ -77,5 +78,14 @@ defmodule Issues.CLI do
   def sort_into_descending_order(list_of_issues) do
     list_of_issues
     |> Enum.sort(&(&1["created_at"] >= &2["created_at"]))
+  end
+
+  @doc """
+  リストから最初の`count`個の要素を取り、逆順に並べ替える
+  """
+  def last(list, count) do
+    list
+    |> Enum.take(count)
+    |> Enum.reverse()
   end
 end
