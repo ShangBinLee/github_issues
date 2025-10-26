@@ -2,7 +2,7 @@ defmodule Issues.CLI do
   @moduledoc """
   コマンド入力をパースし、対象のGithubプロジェクトで
 
-  一番古いn個のissueを表示する。
+  最新のn個のissueを古い順に表示する。
   """
 
   @default_count 4
