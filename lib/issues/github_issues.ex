@@ -5,6 +5,8 @@ defmodule Issues.GithubIssues do
   公開プロジェクトのIssuesを照会する
   """
 
+  @github_url Application.compile_env(:github_issues, :github_url)
+
   @doc """
   コマンド入力に該当するプロジェクトのissuesを取得
   """
@@ -15,7 +17,7 @@ defmodule Issues.GithubIssues do
   end
 
   def issues_url(user, project) do
-    "https://api.github.com/repos/#{user}/#{project}/issues"
+    "#{@github_url}/repos/#{user}/#{project}/issues"
   end
 
   def handle_response(%Req.Response{status: 200, body: body}) do
