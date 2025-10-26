@@ -7,7 +7,9 @@ defmodule Issues.CLI do
 
   @default_count 4
   def run(argv) do
-    parse_args(argv)
+    argv
+    |> parse_args()
+    |> process()
   end
 
   @doc """
@@ -38,5 +40,23 @@ defmodule Issues.CLI do
   # その他
   def args_to_internal_representation(_) do
     :help
+  end
+
+  @doc """
+
+  パースされたコマンド入力を実行する。
+
+  ## パラメータ
+
+    - コマンド
+      - `:help`
+      - `{ユーザ名、プロジェクト名、項目数}
+
+  """
+  def process(:help) do
+    IO.puts """
+    コマンド形式：issues <ユーザ名> <プロジェクト名> [ 項目数 | #{@default_count}（デフォルト値） ]
+    """
+    System.halt(0)
   end
 end
