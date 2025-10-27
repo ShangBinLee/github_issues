@@ -63,7 +63,7 @@ defmodule Issues.CLI do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
     |> sort_into_descending_order() # 新しい順に並べ替える
-    |> last(count) # `count`個を取り、古い順にする
+    |> last(count) # `count`個を取り出し、古い順にする
   end
 
   def decode_response({:ok, body}), do: body
@@ -81,7 +81,7 @@ defmodule Issues.CLI do
   end
 
   @doc """
-  リストから最初の`count`個の要素を取り、逆順に並べ替える
+  リストから最初の`count`個の要素を取り出し、逆順に並べ替える
   """
   def last(list, count) do
     list
