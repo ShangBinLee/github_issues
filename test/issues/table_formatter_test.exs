@@ -29,7 +29,9 @@ defmodule Issues.TableFormatterTest do
   end
 
   test "列の幅" do
-    widths = TF.widths_of(split_with_three_columns())
+    headers_printable = TF.headers_printable(@headers)
+    columns = split_with_three_columns()
+    widths = TF.widths_of(headers_printable, columns)
     assert widths == [5, 6, 7]
   end
 

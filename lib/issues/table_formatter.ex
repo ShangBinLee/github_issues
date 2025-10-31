@@ -17,7 +17,7 @@ defmodule Issues.TableFormatter do
   @spec print_table_for_columns(list(Map), list(String.t())) :: :ok
   def print_table_for_columns(rows, headers) do
     with columns = split_into_columns(rows, headers),
-      columns_widths = widths_of(columns),
+      columns_widths = widths_of(headers_printable(headers), columns),
       format = format_for(columns_widths)
     do
       puts_one_line_in_columns(headers, format)
@@ -58,25 +58,45 @@ defmodule Issues.TableFormatter do
   def printable(str) when is_binary(str), do: str
   def printable(str), do: to_string(str)
 
+  def headers_printable(headers), do: headers |> Enum.map(&printable/1)
+
   @doc """
-  カラムのリストからカラムごとの幅を返す。
+  カラムのリストとヘッダー名からカラムごとの幅を返す。
 
   ## 例
 
-      iex> Issues.TableFormatter.widths_of([
-      ...>  ["1", "2", "3"],
-      ...>  ["text", "dd", "general"]
-      ...> ])
-      [1, 7]
-      iex> Issues.TableFormatter.widths_of([
-      ...>  ["jp", "us", "eu"],
-      ...>  ["小麦粉", "麦わら帽子", "ジーンズ"]
-      ...> ])
-      [2, 5]
+      iex> Issues.TableFormatter.widths_of(
+      ...>  ["number", "title"],
+      ...>  [
+      ...>    ["1", "2", "3"],
+      ...>    ["text", "dd", "general"]
+      ...>  ])
+      [6, 7]
+      iex> Issues.TableFormatter.widths_of(
+      ...>  ["country", "product"],
+      ...>  [
+      ...>    ["jp", "us", "eu"],
+      ...>    ["小麦粉", "麦わら帽子", "ジーンズ"]
+      ...>  ])
+      [7, 7]
 
   """
-  @spec widths_of(list(Enumerable.t(String.t()))) :: list(integer())
-  def widths_of(columns) do
+  @spec widths_of(list(String.t()), list(Enumerable.t(String.t()))) :: list(integer())
+  def widths_of(headers, columns) do
+    Enum.zip(
+      widths_of_headers(headers),
+      widths_of_columns(columns)
+    )
+    |> Enum.map(&Tuple.to_list/1)
+    |> Enum.map(&Enum.max/1)
+  end
+
+  @spec widths_of_headers(list(String.t())) :: list(integer())
+  defp widths_of_headers(headers) do
+    headers |> Enum.map(&String.length/1)
+  end
+  @spec widths_of_columns(list(Enumerable.t(String.t()))) :: list(integer())
+  defp widths_of_columns(columns) do
     for column <- columns do
       column |> Enum.map(&String.length/1) |> Enum.max()
     end
