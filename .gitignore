@@ -14,3 +14,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 github_issues-*.tar
+
+# escriptファイル
+github_issues
