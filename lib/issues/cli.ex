@@ -4,6 +4,7 @@ defmodule Issues.CLI do
 
   最新のn個のissueを古い順に表示する。
   """
+  import Issues.TableFormatter, only: [print_table_for_columns: 2]
 
   @default_count 4
   def run(argv) do
@@ -64,6 +65,7 @@ defmodule Issues.CLI do
     |> decode_response()
     |> sort_into_descending_order() # 新しい順に並べ替える
     |> last(count) # `count`個を取り出し、古い順にする
+    |> print_table_for_columns(["number", "created_at", "title"]) # 対象カラムを抽出し、テーブル形式で出力
   end
 
   def decode_response({:ok, body}), do: body
