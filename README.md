@@ -187,3 +187,20 @@ number | created_at           | title
 14875  | 2025-10-30T03:23:42Z | Parallel rebar3 dependency compilation fails with deeper build paths
 14883  | 2025-10-31T11:20:37Z | Add Integer.to_float/1
 ```
+
+## ドキュメント化
+### ExDoc
+#### 実行（CMD内）
+```
+$ mix docs
+```
+
+#### 結果
+```
+Generating docs...
+View "html" docs at "doc/index.html"
+View "epub" docs at "doc/GithubIssues.epub"
+```
+
+#### 確認
+作成された`doc/index.html`をブラウザで開いて確認する。
