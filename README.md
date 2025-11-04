@@ -40,7 +40,7 @@ number | created_at           | title
 14873  | 2025-10-29T19:35:59Z | No longer able to format specific files with compile error present in different file
 14875  | 2025-10-30T03:23:42Z | Parallel rebar3 dependency compilation fails with deeper build paths
 14883  | 2025-10-31T11:20:37Z | Add Integer.to_float/1
-````
+```
 
 ### IEx
 

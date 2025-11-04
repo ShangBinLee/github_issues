@@ -61,7 +61,7 @@ defmodule Issues.TableFormatter do
   def headers_printable(headers), do: headers |> Enum.map(&printable/1)
 
   @doc """
-  カラムのリストとヘッダー名からカラムごとの幅を返す。
+  カラム名のリストとカラムのリストからカラムごとの幅を返す。
 
   ## 例
 

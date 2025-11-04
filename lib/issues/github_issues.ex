@@ -9,7 +9,13 @@ defmodule Issues.GithubIssues do
   @github_url Application.compile_env(:github_issues, :github_url)
 
   @doc """
-  コマンド入力に該当するプロジェクトのissuesを取得
+  対象プロジェクトのissuesを取得
+
+  ## パラメータ
+
+    - user：対象プロジェクトのユーザ名
+    - project：対象プロジェクト名
+
   """
   def fetch(user, project) do
     Logger.info("ユーザ#{user}のプロジェクト#{project}のissuesを取得")

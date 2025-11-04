@@ -1,7 +1,8 @@
 defmodule Issues.CLI do
   @moduledoc """
-  コマンド入力をパースし、対象のGithubプロジェクトで
+  コマンド入力を取り扱うモジュール
 
+  コマンド入力をパースし、対象のGithubプロジェクトで\s\s
   最新のn個のissueを古い順に表示する。
   """
   import Issues.TableFormatter, only: [print_table_for_columns: 2]
@@ -51,7 +52,7 @@ defmodule Issues.CLI do
 
     - コマンド
       - `:help`
-      - `{ユーザ名、プロジェクト名、項目数}
+      - `{ユーザ名、プロジェクト名、項目数}`
 
   """
   def process(:help) do
